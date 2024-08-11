@@ -1,0 +1,30 @@
+{
+  "name": "clothing-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/younusmowlana/Clothing-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/younusmowlana/Clothing-api/issues"
+  },
+  "homepage": "https://github.com/younusmowlana/Clothing-api#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "crypto-js": "^4.1.1",
+    "dotenv": "^16.0.1",
+    "express": "^4.17.3",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.2.8",
+    "nodemon": "^2.0.15",
+    "stripe": "^8.216.0"
+  }
+}
