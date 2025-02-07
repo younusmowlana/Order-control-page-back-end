@@ -19,6 +19,6 @@ app.use(express.json());
 app.use("/api/product",productRoute);
 app.use("/api/users", userRoutes);
 
-app.listen(process.env.PORT || 5000, () =>{
+app.listen(process.env.PORT || 5003, () =>{
     console.log("Backend server is running!");
 })
