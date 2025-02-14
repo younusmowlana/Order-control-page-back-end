@@ -9,7 +9,8 @@ const ProductSchema = new mongoose.Schema({
     category: { type: String, required: true },
     brand: { type: String },
     images: [{ type: String }], 
-    isActive: { type: Boolean, default: true }
+    isActive: { type: Boolean, default: true },
+    user_Id: { type: String, required: true }
 }, { timestamps: true });
 
 module.exports = mongoose.model("Product", ProductSchema);

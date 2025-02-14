@@ -48,7 +48,8 @@ router.post("/", upload.array("images", 5), async (req, res) => {
             category: req.body.category,
             brand: req.body.brand,
             isActive: req.body.isActive === 'true',
-            images: imagePaths
+            images: imagePaths,
+            user_Id: req.body.user_Id
         };
         const product = new Product(productData);
         await product.save();
@@ -90,6 +91,36 @@ router.get("/", async (req, res) => {
             return {
                 ...product.toObject(),
                 images: imagesBase64.filter(img => img !== null) // Remove null values
+            };
+        }));
+
+        res.json(updatedProducts);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+router.get("/:user_id", async (req, res) => {
+    try {
+        const { user_id } = req.params;
+        const products = await Product.find({ user_Id: user_id }); // Use user_Id instead of user_id
+
+        const updatedProducts = await Promise.all(products.map(async (product) => {
+            const imagesBase64 = await Promise.all(product.images.map(async (imgPath) => {
+                try {
+                    const filePath = path.join(__dirname, "uploads", path.basename(imgPath));
+                    await fs.promises.access(filePath);
+                    const imageBuffer = await fs.promises.readFile(filePath);
+                    return `data:image/${path.extname(filePath).slice(1)};base64,${imageBuffer.toString('base64')}`;
+                } catch (err) {
+                    console.error("Error reading file:", err);
+                    return null;
+                }
+            }));
+
+            return {
+                ...product.toObject(),
+                images: imagesBase64.filter(img => img !== null)
             };
         }));
 
